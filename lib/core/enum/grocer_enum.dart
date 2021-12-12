@@ -1,0 +1,1 @@
+enum GrocerState {pending,done}
