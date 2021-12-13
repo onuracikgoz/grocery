@@ -104,22 +104,23 @@ class AddProduct extends StatelessWidget {
                 return CustomFlatButton(
                   text: 'Add product',
                   onPressed: () async {
+                    if (_grocerStore.imageUrl != null) {
+                      if (_formKey.currentState!.validate()) {
+                        Product product = Product(
+                          docId:
+                              DateTime.now().millisecondsSinceEpoch.toString(),
+                          state: 0,
+                          productName: _productNameController.text,
+                          productImage: _grocerStore.imageUrl!,
+                          productOwnerId: _firebaseService.firebaseUser.uid,
+                          price: double.tryParse(_productPriceController.text
+                              .replaceAll(',', '.'))!,
+                          salesState: false,
+                        );
 
-                    if(_grocerStore.imageUrl != null){
-                    if (_formKey.currentState!.validate()) {
-                      Product product = Product(
-                        docId: DateTime.now().millisecondsSinceEpoch.toString(),
-                        state: 0,
-                        productName: _productNameController.text,
-                        productImage: _grocerStore.imageUrl!,
-                        productOwnerId: _firebaseService.firebaseUser.uid,
-                        price: double.tryParse(_productPriceController.text)!,
-                        salesState: false,
-                      );
-
-                      await _grocerStore.addProduct(product: product);
-                    } }
-                    else {
+                        await _grocerStore.addProduct(product: product);
+                      }
+                    } else {
                       Snack.showSnackBar(message: 'Please add a picture');
                     }
                   },
