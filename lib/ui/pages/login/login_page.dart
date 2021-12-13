@@ -128,15 +128,15 @@ class LoginPage extends StatelessWidget {
                         if (passwordController.text ==
                             passwordRetryController.text) {
                           await _loginStore.signUp(
-                              email: emailController.text,
-                              password: passwordController.text);
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim());
                         } else {
                           print('şifreler uyuşmuyor');
                         }
                       } else {
                         await _loginStore.signIn(
-                            email: emailController.text,
-                            password: passwordController.text);
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim());
                       }
                     }
                   },

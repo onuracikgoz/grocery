@@ -100,7 +100,7 @@ abstract class UserStoreBase with Store {
 
   @action
   convertPrice(double price) {
-    String usd = (price * curreny!).toStringAsFixed(2);
+    String usd = (price / curreny!).toStringAsFixed(2);
     return usd;
   }
 
@@ -110,6 +110,7 @@ abstract class UserStoreBase with Store {
       await _firebaseService.buyProducts(basketList);
 
       await getMyItems();
+      basketList.clear();
       await getAllProduct();
       Snack.showSnackBar(
           message:

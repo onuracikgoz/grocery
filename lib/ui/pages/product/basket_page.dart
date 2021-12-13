@@ -49,17 +49,19 @@ class BasketPage extends StatelessWidget {
                     }),
               );
             }),
-            if (_userStore.basketList.isNotEmpty)
-              Observer(builder: (_) {
-                return CustomFlatButton(
-                  text: 'Buy Products ' + _userStore.priceString!,
-                  onPressed: () async {
-                    await _userStore.buyProduct();
-                    //locator<NavigationService>().navigateTo('/addProduct');
-                  },
-                  color: AppConfig.secondaryColor,
-                );
-              })
+            Observer(builder: (_) {
+              if (_userStore.basketList.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return CustomFlatButton(
+                text: 'Buy Products ' + _userStore.priceString!,
+                onPressed: () async {
+                  await _userStore.buyProduct();
+                  //locator<NavigationService>().navigateTo('/addProduct');
+                },
+                color: AppConfig.secondaryColor,
+              );
+            })
           ],
         ),
       ),
